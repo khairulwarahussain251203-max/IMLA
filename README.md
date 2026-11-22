@@ -130,3 +130,10 @@ To add vocabulary to the built-in set, append lines like `kitab: kitaab ketab` t
 * Vocabulary is ~1,390 words, not tens of thousands; extend `lexicon_more.py` or use the clustering route above.
 * Words are normalized in isolation (no sentence context); ambiguous strings are dropped from the dataset.
 * Synthetic sentiment reviews are template-based; the extrinsic gain on real text will be smaller.
+
+<img width="1319" height="643" alt="image" src="https://github.com/user-attachments/assets/54d04d0b-ce0e-42b1-b613-0353d255b24d" />
+<img width="1328" height="406" alt="image" src="https://github.com/user-attachments/assets/8db0f8b2-f10d-414a-bc73-66031c1d21fb" />
+<img width="1248" height="561" alt="image" src="https://github.com/user-attachments/assets/0fbd3d97-f68a-4537-bd70-fb6ef8a4e631" />
+<img width="757" height="585" alt="image" src="https://github.com/user-attachments/assets/90a6a8a6-4df1-49c3-9bd3-233efc1e9df7" />
+<img width="1305" height="508" alt="image" src="https://github.com/user-attachments/assets/95d0a3a2-8436-4f86-a5fa-40b35fe29e1c" />
+
