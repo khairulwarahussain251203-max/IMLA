@@ -1,0 +1,46 @@
+seed,system,accuracy,macro_f1,n_features
+0,raw (no normalization),0.7333,0.7329,1387
+0,rule-based,0.82,0.8192,1123
+0,variant lookup table,0.9533,0.9533,707
+0,edit-distance dictionary (tuned),0.9183,0.9183,847
+0,edit-distance dictionary (loose 0.5),0.985,0.985,424
+0,seq2seq (greedy),0.9967,0.9967,339
+0,"seq2seq (greedy, gated)",0.9917,0.9917,360
+0,"seq2seq (beam 5, gated)",0.9917,0.9917,360
+0,oracle (gold normalization),1.0,1.0,284
+1,raw (no normalization),0.6817,0.6803,1347
+1,rule-based,0.815,0.8146,1112
+1,variant lookup table,0.9483,0.9482,670
+1,edit-distance dictionary (tuned),0.8933,0.8931,843
+1,edit-distance dictionary (loose 0.5),0.985,0.985,434
+1,seq2seq (greedy),0.9967,0.9967,332
+1,"seq2seq (greedy, gated)",0.9933,0.9933,347
+1,"seq2seq (beam 5, gated)",0.9933,0.9933,347
+1,oracle (gold normalization),0.9983,0.9983,280
+2,raw (no normalization),0.7033,0.7017,1382
+2,rule-based,0.8183,0.8178,1120
+2,variant lookup table,0.9567,0.9567,711
+2,edit-distance dictionary (tuned),0.905,0.9049,789
+2,edit-distance dictionary (loose 0.5),0.9817,0.9817,419
+2,seq2seq (greedy),0.9983,0.9983,340
+2,"seq2seq (greedy, gated)",0.9917,0.9917,355
+2,"seq2seq (beam 5, gated)",0.9917,0.9917,355
+2,oracle (gold normalization),1.0,1.0,281
+3,raw (no normalization),0.7433,0.7428,1347
+3,rule-based,0.8267,0.8265,1108
+3,variant lookup table,0.9383,0.9383,664
+3,edit-distance dictionary (tuned),0.9017,0.9016,799
+3,edit-distance dictionary (loose 0.5),0.9833,0.9833,422
+3,seq2seq (greedy),0.9983,0.9983,330
+3,"seq2seq (greedy, gated)",0.9917,0.9917,349
+3,"seq2seq (beam 5, gated)",0.9917,0.9917,349
+3,oracle (gold normalization),1.0,1.0,270
+4,raw (no normalization),0.695,0.695,1374
+4,rule-based,0.82,0.82,1111
+4,variant lookup table,0.95,0.95,694
+4,edit-distance dictionary (tuned),0.93,0.93,803
+4,edit-distance dictionary (loose 0.5),0.9933,0.9933,425
+4,seq2seq (greedy),0.995,0.995,334
+4,"seq2seq (greedy, gated)",0.9933,0.9933,354
+4,"seq2seq (beam 5, gated)",0.9933,0.9933,354
+4,oracle (gold normalization),1.0,1.0,280

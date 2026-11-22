@@ -1,0 +1,41 @@
+system,test_set,subset,n,word_acc,CER
+raw (no normalization),test_variants,all,3355,0.0,0.2858
+raw (no normalization),test_variants,generated variants,2919,0.0,0.2936
+raw (no normalization),test_variants,hand variants,436,0.0,0.235
+raw (no normalization),test_words,all,3021,0.0,0.2861
+raw (no normalization),test_oov,all,58,1.0,0.0
+rule-based,test_variants,all,3355,0.2182,0.2054
+rule-based,test_variants,generated variants,2919,0.2182,0.2065
+rule-based,test_variants,hand variants,436,0.2179,0.1985
+rule-based,test_words,all,3021,0.2135,0.2073
+rule-based,test_oov,all,58,0.931,0.0122
+variant lookup table,test_variants,all,3355,0.0,0.2858
+variant lookup table,test_variants,generated variants,2919,0.0,0.2936
+variant lookup table,test_variants,hand variants,436,0.0,0.235
+variant lookup table,test_words,all,3021,0.0,0.2861
+variant lookup table,test_oov,all,58,1.0,0.0
+edit-distance dictionary (tuned),test_variants,all,3355,0.6709,0.1326
+edit-distance dictionary (tuned),test_variants,generated variants,2919,0.6554,0.1394
+edit-distance dictionary (tuned),test_variants,hand variants,436,0.7752,0.088
+edit-distance dictionary (tuned),test_words,all,3021,0.0,0.3045
+edit-distance dictionary (tuned),test_oov,all,58,0.6897,0.0671
+edit-distance dictionary (loose 0.5),test_variants,all,3355,0.8864,0.0468
+edit-distance dictionary (loose 0.5),test_variants,generated variants,2919,0.8914,0.0442
+edit-distance dictionary (loose 0.5),test_variants,hand variants,436,0.8532,0.0634
+edit-distance dictionary (loose 0.5),test_words,all,3021,0.0,0.4158
+edit-distance dictionary (loose 0.5),test_oov,all,58,0.0172,0.3476
+seq2seq (greedy),test_variants,all,3355,0.9198,0.0248
+seq2seq (greedy),test_variants,generated variants,2919,0.9335,0.0203
+seq2seq (greedy),test_variants,hand variants,436,0.828,0.0536
+seq2seq (greedy),test_words,all,3021,0.282,0.2387
+seq2seq (greedy),test_oov,all,58,0.431,0.1799
+"seq2seq (greedy, gated)",test_variants,all,3355,0.9004,0.0312
+"seq2seq (greedy, gated)",test_variants,generated variants,2919,0.9161,0.0265
+"seq2seq (greedy, gated)",test_variants,hand variants,436,0.7959,0.0618
+"seq2seq (greedy, gated)",test_words,all,3021,0.2291,0.2237
+"seq2seq (greedy, gated)",test_oov,all,58,0.7759,0.061
+"seq2seq (beam 5, gated)",test_variants,all,3355,0.9004,0.0312
+"seq2seq (beam 5, gated)",test_variants,generated variants,2919,0.9161,0.0265
+"seq2seq (beam 5, gated)",test_variants,hand variants,436,0.7959,0.0618
+"seq2seq (beam 5, gated)",test_words,all,3021,0.2291,0.2237
+"seq2seq (beam 5, gated)",test_oov,all,58,0.7759,0.061

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{APP_NAME}} · Roman Urdu normalization</title>
+<style>
+:root{--bg:#f4f5fb;--card:#fff;--ink:#1b2236;--mut:#6a7388;--line:#e3e6f0;--acc:#4f46e5;--acc2:#7c3aed;--accs:#eceafd;--good:#0f9d6b;--goods:#e3f6ef;--warn:#d97706;--warns:#fdf1dd;--blue:#0284c7;--blues:#e0f1fb;--bad:#d64545;--sh:0 1px 2px rgba(20,28,50,.05),0 10px 30px rgba(20,28,50,.07)}
+[data-theme=dark]{--bg:#0d111e;--card:#161b2c;--ink:#e8ebf5;--mut:#98a1b8;--line:#272e45;--acc:#8b85ff;--acc2:#b18cff;--accs:#25264a;--good:#34d399;--goods:#12332b;--warn:#fbbf24;--warns:#3a2e12;--blue:#38bdf8;--blues:#11303f;--bad:#f87171;--sh:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.3)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,-apple-system,sans-serif}
+.ur{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq","Segoe UI",serif}
+header{display:flex;align-items:center;gap:16px;padding:14px 28px;position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{font-size:22px;font-weight:800;letter-spacing:-.5px}.brand .ur{color:var(--acc);font-weight:600;margin-left:8px;font-size:20px}
+nav{display:flex;gap:4px;margin-left:18px}nav button,.ib{border:0;background:none;color:var(--mut);font:inherit;font-weight:600;padding:7px 14px;border-radius:999px;cursor:pointer}
+nav button.on{background:var(--accs);color:var(--acc)}.sp{flex:1}
+.pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:var(--goods);color:var(--good);font-weight:600}.pill.w{background:var(--warns);color:var(--warn)}
+.ib{border:1px solid var(--line);padding:6px 11px}
+main{max-width:1080px;margin:0 auto;padding:28px 22px 60px}
+.hero{text-align:center;padding:26px 0 8px}.hero h1{font-size:clamp(28px,4.6vw,46px);line-height:1.1;margin:0 0 10px;letter-spacing:-1.2px;font-weight:800}
+.grad{background:linear-gradient(90deg,var(--acc),var(--acc2),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0 auto;max-width:620px;color:var(--mut);font-size:16.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:20px 22px;margin-top:18px}
+.card h2{margin:0 0 4px;font-size:13px;letter-spacing:.9px;text-transform:uppercase;color:var(--mut);font-weight:700}.sub{color:var(--mut);font-size:13.5px;margin:0 0 12px}
+textarea{width:100%;min-height:92px;resize:vertical;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;font-size:18px;padding:13px 15px;outline:none}
+textarea:focus{border-color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}.chips span{color:var(--mut);font-size:13px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:999px;font:inherit;font-size:13.5px;cursor:pointer}.chip:hover{border-color:var(--acc);color:var(--acc)}
+.out{font-size:clamp(21px,3vw,29px);line-height:1.7;min-height:56px;font-weight:500}.ph{color:var(--mut);font-size:16px}
+.w{padding:1px 6px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s;display:inline-block}.w:hover{outline:2px solid var(--line)}
+.w.pre{color:var(--mut);text-decoration:line-through;text-decoration-color:var(--bad)}
+.w.ch{background:var(--accs);color:var(--acc);font-weight:700}.w.ch.lookup{background:var(--blues);color:var(--blue)}
+.w.keep{background:var(--warns);color:var(--warn)}.w.sel{outline:2px solid var(--acc)}
+.pop{animation:pop .45s cubic-bezier(.2,1.6,.4,1)}@keyframes pop{0%{transform:scale(.7);opacity:.2}100%{transform:none;opacity:1}}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.tools{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}.btn{border:0;background:linear-gradient(90deg,var(--acc),var(--acc2));color:#fff;font:inherit;font-weight:700;padding:9px 18px;border-radius:12px;cursor:pointer}.btn.g{background:var(--accs);color:var(--acc)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.st{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:var(--sh)}
+.st b{display:block;font-size:30px;letter-spacing:-1px;line-height:1.2}.st small{color:var(--mut);font-size:12.5px}
+.g2{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+#cl{width:100%;height:auto;display:block}.vn{transition:transform .9s cubic-bezier(.2,.9,.25,1),opacity .6s}.vn text{fill:var(--ink);font-size:15px}.vn.me text{fill:var(--acc);font-weight:800}
+.ln{stroke:var(--line);stroke-width:1.5;opacity:0;transition:opacity .7s}.cen rect{fill:var(--acc)}.cen text{fill:#fff;font-weight:800;font-size:19px}
+.cand{display:grid;grid-template-columns:90px 1fr 42px;gap:8px;align-items:center;margin:7px 0;font-size:14px}
+.trk{height:9px;border-radius:9px;background:var(--bg);overflow:hidden}.trk i{display:block;height:100%;border-radius:9px;background:var(--mut);transition:width .6s}.acc i{background:linear-gradient(90deg,var(--acc),var(--acc2))}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th{text-align:left;color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.7px;padding:6px 10px;border-bottom:1px solid var(--line)}td{padding:7px 10px;border-bottom:1px solid var(--line)}
+td.c{color:var(--acc);font-weight:700}tr.story td{background:var(--warns)}.note{background:var(--warns);color:var(--warn);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:14px}.note b{color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.sc{border:1px solid var(--line);border-radius:14px;padding:14px}.sc small{color:var(--mut)}.lab{font-size:20px;font-weight:800;margin:4px 0 8px}
+.pos{color:var(--good)}.neg{color:var(--bad)}.neu{color:var(--mut)}.head{font-size:17px;margin:0 0 12px}.head b{color:var(--acc)}
+.bar{display:grid;grid-template-columns:230px 1fr 52px;gap:10px;align-items:center;margin:6px 0;font-size:13.5px}.bar b{text-align:right}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--bg);border-radius:12px;padding:10px 16px}.tile b{font-size:22px;display:block}
+[hidden]{display:none!important}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.g2,.two{grid-template-columns:1fr}.bar{grid-template-columns:1fr 60px}.bar .trk{grid-column:1/3}header{padding:12px 16px;flex-wrap:wrap}}
+</style></head><body>
+<header><div class="brand">{{APP_NAME}}<span class="ur">املا</span></div>
+<nav><button class="on" data-t="demo">Live demo</button><button data-t="res">Results</button></nav><div class="sp"></div>
+<span class="pill" id="pill">loading…</span><button class="ib" id="theme" title="Toggle theme">◐</button></header>
+
+<main id="demo">
+<section class="hero"><h1>One word, <span class="grad">a hundred spellings.</span></h1>
+<p><i>acha, achha, accha, achaa</i> all mean the same thing. {{APP_NAME}} maps messy Roman Urdu to one standard spelling with a character-level seq2seq model, and leaves words it does not recognise alone.</p></section>
+
+<div class="card"><h2>Type or paste Roman Urdu</h2>
+<textarea id="in" spellcheck="false" placeholder="e.g. delivry bht late thi lekin product zabardast hai"></textarea>
+<div class="chips"><span>Try:</span><span id="ex"></span></div></div>
+
+<div class="card"><h2>Normalized</h2><div class="out" id="out"><span class="ph">The standard spelling appears here</span></div>
+<div class="legend"><span><i style="background:var(--acc)"></i>fixed by model</span><span><i style="background:var(--blue)"></i>known spelling</span><span><i style="background:var(--warn)"></i>left unchanged (unknown word)</span><span>Click any word to explore it</span></div>
+<div class="tools"><button class="btn" id="share">Save share card (PNG)</button><button class="btn g" id="copy">Copy text</button></div></div>
+
+<div class="stats"><div class="st"><b id="sW">0</b><small>words</small></div><div class="st"><b id="sC">0</b><small>respelled</small></div>
+<div class="st"><b id="sK">0</b><small>left alone (unknown)</small></div><div class="st"><b id="sD">–</b><small>distinct spellings, before → after</small></div></div>
+
+<div class="card g2" id="exp"><div><h2>Spelling cluster</h2><p class="sub" id="clt">Click a word above to see its known spellings converge.</p>
+<svg id="cl" viewBox="0 0 640 360"></svg></div><div><h2>Model's top guesses</h2><p class="sub" id="cdt">Beam-search candidates with confidence.</p><div id="cd"></div></div></div>
+
+<div class="card"><h2>System comparison</h2><p class="sub">The same sentence through three normalizers.</p><div id="note"></div><div style="overflow-x:auto"><table id="cmp"></table></div></div>
+
+<div class="card"><h2>Why normalize?</h2><p class="head" id="head">Sentiment accuracy on noisy reviews</p>
+<div class="two"><div class="sc"><small>Classifier on raw text</small><div class="lab" id="sr">–</div><div class="trk acc"><i id="br" style="width:0"></i></div></div>
+<div class="sc"><small>Classifier on normalized text</small><div class="lab" id="sn">–</div><div class="trk acc"><i id="bn" style="width:0"></i></div></div></div></div>
+</main>
+
+<main id="res" hidden>
+<div class="card"><h2>Intrinsic evaluation</h2><p class="sub">Word accuracy per test set (unknown words: share left untouched). Higher is better.</p><div id="intr"></div></div>
+<div class="card"><h2>Extrinsic evaluation</h2><p class="sub">Sentiment accuracy after each normalizer (mean of 5 seeds).</p><div id="extr"></div></div>
+<div class="card"><h2>Dataset building</h2><div class="tiles" id="clus"></div></div>
+</main>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const post=async(p,b)=>{const r=await fetch(p,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)});const j=await r.json();if(j.error)throw new Error(j.error);return j};
+const get=async p=>(await fetch(p)).json();
+const EX=["delivry bht late thi lekin product zabardast hai","mjhe ye phone bilkul pasnd nhi aya, wapis krna hai","shukria bhai, service kamaal thi aur packing bhi achhi","aj mausam bohot acha hai yaar","hospital ki service bohat khrab thi, paisa zaya"];
+let info={},R=null,cur=null,seq=0,tm=null;
+const best=t=>t.nn||t.dict;
+$("#ex").innerHTML=EX.map((e,i)=>`<button class="chip" data-i="${i}">${esc(e.split(" ").slice(0,3).join(" "))}…</button>`).join(" ");
+$("#ex").onclick=e=>{const i=e.target.dataset.i;if(i!==undefined){$("#in").value=EX[i];run()}};
+$("#in").oninput=()=>{clearTimeout(tm);tm=setTimeout(run,320)};
+$$("nav button").forEach(b=>b.onclick=()=>{$$("nav button").forEach(x=>x.classList.toggle("on",x===b));$("#demo").hidden=b.dataset.t!=="demo";$("#res").hidden=b.dataset.t!=="res";if(b.dataset.t==="res")drawRes()});
+const setTheme=t=>document.documentElement.dataset.theme=t;
+setTheme(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
+$("#theme").onclick=()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark");
+
+function countTo(el,n){const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/500);el.textContent=Math.round(n*k);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+async function run(){
+  const text=$("#in").value.trim();
+  if(!text){$("#out").innerHTML='<span class="ph">The standard spelling appears here</span>';return}
+  const my=++seq;
+  try{const r=await post("/api/normalize",{text,lookup:true});if(my!==seq)return;cur=r;render(r)}
+  catch(e){$("#out").textContent=e.message}
+}
+function render(r){
+  const out=$("#out");out.innerHTML="";let i=0;
+  r.tokens.forEach(t=>{
+    if(!t.w){out.append(document.createTextNode(t.t));return}
+    const b=best(t),s=document.createElement("span");s.className="w "+(t.src||"");s.dataset.w=t.w;s.textContent=t.t;
+    if(b!==t.w){s.classList.add("pre");setTimeout(()=>{s.textContent=b;s.classList.remove("pre");s.classList.add("ch","pop")},150+(i++)*80)}
+    else if(t.src==="kept"){s.classList.add("keep");s.title="Not in the vocabulary: left unchanged (confidence "+t.conf+")"}
+    s.onclick=()=>pick(t.w);out.append(s)});
+  const s=r.stats,kept=r.tokens.filter(t=>t.src==="kept").length;
+  countTo($("#sW"),s.words);countTo($("#sC"),s.changed);countTo($("#sK"),kept);$("#sD").textContent=s.distinct_before+" → "+s.distinct_after;
+  compare(r);sent(r);
+  const first=r.tokens.find(t=>t.w&&best(t)!==t.w)||r.tokens.find(t=>t.w);if(first)pick(first.w)
+}
+function compare(r){
+  const seen=new Set(),rows=[],nn=r.has_nn;
+  r.tokens.forEach(t=>{if(t.w&&!seen.has(t.w)){seen.add(t.w);rows.push(t)}});
+  let h="<tr><th>Typed</th><th>Rule-based</th><th>Dictionary</th>"+(nn?"<th>"+esc(info.app||"Imla")+" (seq2seq)</th>":"")+"</tr>";
+  const st=[];
+  rows.forEach(t=>{const sty=nn&&t.src==="kept"&&t.dict!==t.w;if(sty)st.push(t);
+    h+=`<tr class="${sty?"story":""}"><td>${esc(t.w)}</td><td>${esc(t.rule)}</td><td>${esc(t.dict)}</td>`+(nn?`<td class="c">${esc(t.nn)}</td>`:"")+"</tr>"});
+  $("#cmp").innerHTML=h;
+  $("#note").innerHTML=st.length?`<div class="note"><b>Safe by design:</b> `+st.slice(0,3).map(t=>`the dictionary would turn <b>${esc(t.w)}</b> into <b>${esc(t.dict)}</b>; ${esc(info.app||"Imla")} leaves it alone`).join(" · ")+".</div>":""
+}
+function sent(r){
+  const s=r.sentiment,f=x=>`<span class="${x.label==="Positive"?"pos":x.label==="Negative"?"neg":"neu"}">${x.label}</span>`;
+  $("#sr").innerHTML=f(s.raw);$("#sn").innerHTML=f(s.norm);
+  $("#br").style.width=Math.round(s.raw.p_pos*100)+"%";$("#bn").style.width=Math.round(s.norm.p_pos*100)+"%"
+}
+async function pick(w){
+  $$(".w").forEach(e=>e.classList.toggle("sel",e.dataset.w===w));
+  const [v,c]=await Promise.all([get("/api/variants?word="+encodeURIComponent(w)),post("/api/candidates",{word:w})]);
+  cluster(v,w);
+  $("#cdt").textContent=c.kind;
+  $("#cd").innerHTML=c.candidates.map((x,i)=>`<div class="cand"><span>${esc(x.text)}</span><div class="trk ${i?"":"acc"}"><i style="width:${Math.max(2,Math.round(x.score*100))}%"></i></div><small>${Math.round(x.score*100)}%</small></div>`).join("")
+}
+function cluster(v,w){
+  const svg=$("#cl"),NS="http://www.w3.org/2000/svg",cx=320,cy=180;svg.innerHTML="";
+  const mk=(t,a={})=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e};
+  $("#clt").textContent=v.known?`${v.total} known spellings → ${v.canonical}`:`“${w}” is not in the vocabulary, so it stays as it is.`;
+  let vs=v.variants.filter(x=>x!==v.canonical);if(v.known&&w!==v.canonical&&!vs.includes(w))vs.unshift(w);
+  vs.forEach((x,i)=>{
+    const a=i/vs.length*Math.PI*2-Math.PI/2,ex=cx+Math.cos(a)*235,ey=cy+Math.sin(a)*130;
+    const ln=mk("line",{x1:cx,y1:cy,x2:ex,y2:ey,class:"ln"});svg.append(ln);
+    const g=mk("g",{class:"vn"+(x===w?" me":"")});g.style.opacity=0;g.style.transform=`translate(${cx+Math.cos(a)*430}px,${cy+Math.sin(a)*320}px)`;
+    const t=mk("text",{"text-anchor":"middle",dy:".35em"});t.textContent=x;g.append(t);svg.append(g);
+    setTimeout(()=>{g.style.transform=`translate(${ex}px,${ey}px)`;g.style.opacity=1;ln.style.opacity=.9},60+i*40)});
+  const c=mk("g",{class:"cen"}),wd=34+v.canonical.length*12;
+  c.append(mk("rect",{x:cx-wd/2,y:cy-22,width:wd,height:44,rx:22}));const t=mk("text",{x:cx,y:cy,"text-anchor":"middle",dy:".35em"});t.textContent=v.canonical;c.append(t);svg.append(c)
+}
+$("#copy").onclick=()=>{if(cur)navigator.clipboard.writeText(cur.tokens.map(t=>t.w?best(t):t.t).join(""))};
+$("#share").onclick=()=>{
+  if(!cur)return;
+  const c=document.createElement("canvas");c.width=1200;c.height=630;const g=c.getContext("2d");
+  const gr=g.createLinearGradient(0,0,1200,630);gr.addColorStop(0,"#1e1b4b");gr.addColorStop(1,"#4f46e5");g.fillStyle=gr;g.fillRect(0,0,1200,630);
+  const rr=(x,y,w,h,r,f)=>{g.beginPath();g.roundRect?g.roundRect(x,y,w,h,r):g.rect(x,y,w,h);g.fillStyle=f;g.fill()};
+  const wrap=(tx,x,y,mw,lh,max)=>{const ws=tx.split(" ");let l="",n=0;for(const w of ws){const t=l?l+" "+w:w;if(g.measureText(t).width>mw&&l){g.fillText(l,x,y+n*lh);l=w;if(++n>=max-1&&0)break}else l=t}g.fillText(l,x,y+n*lh)};
+  g.fillStyle="#fff";g.font="800 46px 'Segoe UI',system-ui,sans-serif";g.fillText((info.app||"Imla")+"  املا",60,92);
+  g.font="500 22px 'Segoe UI',system-ui,sans-serif";g.fillStyle="#c7d2fe";g.fillText("Roman Urdu text normalization · character-level seq2seq",60,128);
+  const before=cur.tokens.map(t=>t.t).join(""),after=cur.tokens.map(t=>t.w?best(t):t.t).join("");
+  rr(60,160,1080,170,24,"rgba(255,255,255,.12)");g.fillStyle="#c7d2fe";g.font="700 16px 'Segoe UI',sans-serif";g.fillText("BEFORE",90,196);
+  g.fillStyle="#fff";g.font="500 32px 'Segoe UI',sans-serif";wrap(before,90,242,1020,44,3);
+  rr(60,350,1080,170,24,"#ffffff");g.fillStyle="#4f46e5";g.font="700 16px 'Segoe UI',sans-serif";g.fillText("AFTER",90,386);
+  g.fillStyle="#1b2236";g.font="700 32px 'Segoe UI',sans-serif";wrap(after,90,432,1020,44,3);
+  g.fillStyle="#c7d2fe";g.font="600 22px 'Segoe UI',sans-serif";g.fillText(`${cur.stats.distinct_before} distinct spellings → ${cur.stats.distinct_after}   ·   ${(info.vocab||0).toLocaleString()}-word vocabulary`,60,578);
+  c.toBlob(b=>{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="imla-demo.png";a.click()})
+};
+function drawRes(){
+  if(!R)return;
+  const bar=(n,v,hi)=>`<div class="bar"><span>${esc(n)}</span><div class="trk ${hi?"acc":""}"><i style="width:${Math.round(v*100)}%"></i></div><b>${v.toFixed(3)}</b></div>`;
+  const nm={test_variants:"Unseen spellings of known words",test_words:"Unseen words",test_oov:"Unknown words left untouched"};
+  $("#intr").innerHTML=Object.keys(nm).map(k=>`<p class="sub" style="margin-top:14px"><b>${nm[k]}</b></p>`+(R.intrinsic||[]).filter(x=>x.test_set===k).map(x=>bar(x.system,x.word_acc,/seq2seq/.test(x.system))).join("")).join("");
+  $("#extr").innerHTML=(R.extrinsic||[]).map(x=>bar(x.system,x.acc_mean,/seq2seq/.test(x.system))).join("");
+  const c=R.clustering||{};$("#clus").innerHTML=Object.entries(c).map(([k,v])=>`<div class="tile"><b>${typeof v==="number"?(v<=1?v.toFixed(3):v):v}</b><small>${esc(k.replace(/_/g," "))}</small></div>`).join("")
+}
+(async()=>{
+  info=await get("/api/info");
+  $("#pill").textContent=(info.neural?"seq2seq on":"dictionary mode")+" · "+info.vocab.toLocaleString()+" words";$("#pill").classList.toggle("w",!info.neural);if(info.note&&!info.neural)$("#pill").title=info.note;
+  R=await get("/api/results");const ex=R.extrinsic||[],raw=ex.find(x=>/^raw/.test(x.system)),nn=ex.filter(x=>/seq2seq/.test(x.system)).sort((a,b)=>b.acc_mean-a.acc_mean)[0]||ex.find(x=>/tuned/.test(x.system));
+  if(raw&&nn)$("#head").innerHTML=`Sentiment accuracy on noisy reviews: <b>${Math.round(raw.acc_mean*100)}%</b> raw → <b>${Math.round(nn.acc_mean*100)}%</b> normalized`;
+  $("#in").value=EX[0];run()
+})();
+</script></body></html>

@@ -1,0 +1,10 @@
+system,acc_mean,acc_std,f1_mean,vocab_size
+raw (no normalization),0.7113,0.0261,0.7105,1367.4
+rule-based,0.82,0.0042,0.8196,1114.8
+variant lookup table,0.9493,0.0069,0.9493,689.2
+edit-distance dictionary (tuned),0.9097,0.0145,0.9096,816.2
+edit-distance dictionary (loose 0.5),0.9857,0.0045,0.9857,424.8
+seq2seq (greedy),0.997,0.0014,0.997,335.0
+"seq2seq (greedy, gated)",0.9923,0.0009,0.9923,353.0
+"seq2seq (beam 5, gated)",0.9923,0.0009,0.9923,353.0
+oracle (gold normalization),0.9997,0.0007,0.9997,279.0
