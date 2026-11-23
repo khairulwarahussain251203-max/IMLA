@@ -12,8 +12,8 @@ nav{display:flex;gap:4px;margin-left:18px}nav button,.ib{border:0;background:non
 nav button.on{background:var(--accs);color:var(--acc)}.sp{flex:1}
 .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:var(--goods);color:var(--good);font-weight:600}.pill.w{background:var(--warns);color:var(--warn)}
 .ib{border:1px solid var(--line);padding:6px 11px}
-main{max-width:1080px;margin:0 auto;padding:28px 22px 60px}
-.hero{text-align:center;padding:26px 0 8px}.hero h1{font-size:clamp(28px,4.6vw,46px);line-height:1.1;margin:0 0 10px;letter-spacing:-1.2px;font-weight:800}
+main{max-width:1360px;margin:0 auto;padding:28px 22px 60px}
+.hero{text-align:center;padding:14px 0 0}.hero h1{font-size:clamp(28px,4.6vw,46px);line-height:1.1;margin:0 0 10px;letter-spacing:-1.2px;font-weight:800}
 .grad{background:linear-gradient(90deg,var(--acc),var(--acc2),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{margin:0 auto;max-width:620px;color:var(--mut);font-size:16.5px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:20px 22px;margin-top:18px}
@@ -32,7 +32,12 @@ textarea:focus{border-color:var(--acc)}
 .tools{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}.btn{border:0;background:linear-gradient(90deg,var(--acc),var(--acc2));color:#fff;font:inherit;font-weight:700;padding:9px 18px;border-radius:12px;cursor:pointer}.btn.g{background:var(--accs);color:var(--acc)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.st{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:var(--sh)}
 .st b{display:block;font-size:30px;letter-spacing:-1px;line-height:1.2}.st small{color:var(--mut);font-size:12.5px}
-.g2{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:18px;margin-top:18px;align-items:stretch}
+.col{display:flex;flex-direction:column;gap:18px}.col>.card,.col>.stats,.split>.card{margin-top:0}
+.col>.card:nth-child(2){flex:1}.col .stats{grid-template-columns:repeat(4,1fr);gap:8px}.col .st small{font-size:11.5px;line-height:1.25;display:block}
+#exp{display:flex;flex-direction:column}#exp #cl{flex:1;min-height:0}
+#cd{display:grid;grid-template-columns:1fr 1fr;column-gap:26px}.dv{margin-top:6px;border-top:1px solid var(--line);padding-top:12px}
+@media(max-width:1000px){.split{grid-template-columns:1fr}#cd{grid-template-columns:1fr}}
 #cl{width:100%;height:auto;display:block}.vn{transition:transform .9s cubic-bezier(.2,.9,.25,1),opacity .6s}.vn text{fill:var(--ink);font-size:15px}.vn.me text{fill:var(--acc);font-weight:800}
 .ln{stroke:var(--line);stroke-width:1.5;opacity:0;transition:opacity .7s}.cen rect{fill:var(--acc)}.cen text{fill:#fff;font-weight:800;font-size:19px}
 .cand{display:grid;grid-template-columns:90px 1fr 42px;gap:8px;align-items:center;margin:7px 0;font-size:14px}
@@ -44,7 +49,11 @@ td.c{color:var(--acc);font-weight:700}tr.story td{background:var(--warns)}.note{
 .bar{display:grid;grid-template-columns:230px 1fr 52px;gap:10px;align-items:center;margin:6px 0;font-size:13.5px}.bar b{text-align:right}
 .tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--bg);border-radius:12px;padding:10px 16px}.tile b{font-size:22px;display:block}
 [hidden]{display:none!important}
-@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.g2,.two{grid-template-columns:1fr}.bar{grid-template-columns:1fr 60px}.bar .trk{grid-column:1/3}header{padding:12px 16px;flex-wrap:wrap}}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.bar{grid-template-columns:1fr 60px}.bar .trk{grid-column:1/3}header{padding:12px 16px;flex-wrap:wrap}}
+.hero h1{font-size:clamp(26px,3.2vw,38px)!important;margin-bottom:6px!important}.hero p{font-size:14.5px!important}.hero{padding:8px 0 0!important}
+.split{gap:14px!important;margin-top:14px!important}.col{gap:14px!important}
+.col textarea{min-height:64px}.col .card{padding:16px 20px}.col .chips{margin-top:8px}.col .out{min-height:40px;line-height:1.5}.col .tools{margin-top:10px}
+.col .st{padding:8px 10px}.col .st b{font-size:22px}#exp{padding:16px 20px}#exp #cl{max-height:330px}
 </style></head><body>
 <header><div class="brand">{{APP_NAME}}<span class="ur">املا</span></div>
 <nav><button class="on" data-t="demo">Live demo</button><button data-t="res">Results</button></nav><div class="sp"></div>
@@ -54,6 +63,8 @@ td.c{color:var(--acc);font-weight:700}tr.story td{background:var(--warns)}.note{
 <section class="hero"><h1>One word, <span class="grad">a hundred spellings.</span></h1>
 <p><i>acha, achha, accha, achaa</i> all mean the same thing. {{APP_NAME}} maps messy Roman Urdu to one standard spelling with a character-level seq2seq model, and leaves words it does not recognise alone.</p></section>
 
+<div class="split">
+<div class="col">
 <div class="card"><h2>Type or paste Roman Urdu</h2>
 <textarea id="in" spellcheck="false" placeholder="e.g. delivry bht late thi lekin product zabardast hai"></textarea>
 <div class="chips"><span>Try:</span><span id="ex"></span></div></div>
@@ -64,9 +75,10 @@ td.c{color:var(--acc);font-weight:700}tr.story td{background:var(--warns)}.note{
 
 <div class="stats"><div class="st"><b id="sW">0</b><small>words</small></div><div class="st"><b id="sC">0</b><small>respelled</small></div>
 <div class="st"><b id="sK">0</b><small>left alone (unknown)</small></div><div class="st"><b id="sD">–</b><small>distinct spellings, before → after</small></div></div>
-
-<div class="card g2" id="exp"><div><h2>Spelling cluster</h2><p class="sub" id="clt">Click a word above to see its known spellings converge.</p>
-<svg id="cl" viewBox="0 0 640 360"></svg></div><div><h2>Model's top guesses</h2><p class="sub" id="cdt">Beam-search candidates with confidence.</p><div id="cd"></div></div></div>
+</div>
+<div class="card" id="exp"><div><h2>Spelling cluster</h2><p class="sub" id="clt">Click a word on the left to see its known spellings converge.</p>
+<svg id="cl" viewBox="0 0 640 360"></svg></div><div class="dv"><h2>Model's top guesses</h2><p class="sub" id="cdt">Beam-search candidates with confidence.</p><div id="cd"></div></div></div>
+</div>
 
 <div class="card"><h2>System comparison</h2><p class="sub">The same sentence through three normalizers.</p><div id="note"></div><div style="overflow-x:auto"><table id="cmp"></table></div></div>
 
@@ -98,9 +110,17 @@ setTheme(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
 $("#theme").onclick=()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark");
 
 function countTo(el,n){const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/500);el.textContent=Math.round(n*k);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function clearAll(){
+  $("#out").innerHTML='<span class="ph">The standard spelling appears here</span>';
+  ["#sW","#sC","#sK"].forEach(k=>$(k).textContent="0");$("#sD").textContent="–";
+  $("#cl").innerHTML="";$("#cd").innerHTML="";
+  $("#clt").textContent="Click a word on the left to see its known spellings converge.";
+  $("#cdt").textContent="Beam-search candidates with confidence.";
+  $("#note").innerHTML="";$("#cmp").innerHTML="";$("#sr").textContent="–";$("#sn").textContent="–";$("#br").style.width="0";$("#bn").style.width="0";
+}
 async function run(){
   const text=$("#in").value.trim();
-  if(!text){$("#out").innerHTML='<span class="ph">The standard spelling appears here</span>';return}
+  if(!text){seq++;cur=null;clearAll();return}
   const my=++seq;
   try{const r=await post("/api/normalize",{text,lookup:true});if(my!==seq)return;cur=r;render(r)}
   catch(e){$("#out").textContent=e.message}
